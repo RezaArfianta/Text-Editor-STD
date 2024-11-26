@@ -13,7 +13,7 @@ int main()
     cout << a * b << endl;
 
     List coba;
-    address sbntr;
+    adrList sbntr;
     createList(coba);
     sbntr = createElm(10);
     insertFirst(coba, sbntr);
