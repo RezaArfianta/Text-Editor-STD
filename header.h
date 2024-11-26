@@ -2,22 +2,69 @@
 #define HEADER_H_INCLUDED
 
 struct Elm;
-typedef Elm *address;
+typedef Elm *adrList;
 
 struct Elm
 {
     int info;
-    address next;
+    adrList next;
+    adrList prev;
 };
 
 struct List
 {
-    address first;
+    adrList first;
+    adrList last;
+};
+
+const int MAXSIZE = 4;
+typedef char infotypeS;
+typedef int index;
+struct Stack {
+    infotypeS info[MAXSIZE];
+    index top;
+};
+
+typedef int infotypeQ;
+struct ElmQueue;
+typedef ElmQueue *address;
+
+struct ElmQueue{
+    infotypeQ info;
+    address next;
+    address prev;
+};
+
+struct Queue{
+    address head;
+    address tail;
 };
 
 void createList(List &L);
-address createElm(int x);
-void insertFirst(List &L, address P);
+adrList createElm(int x);
+void insertFirst(List &L, adrList P);
+void insertLast(List &L, adrList P);
+void insertAfter(List &L, adrList P, adrList pred);
+void deleteFirst(List &L, adrList P);
+void deleteLast(List &L, adrList P);
+void deleteAfter(List &L, adrList P, adrList pred);
 void printList(List L);
+
+void createStack(Stack &S);
+infotypeS isEmptyS(Stack S);
+infotypeS isFullS(Stack S);
+void push(Stack &S, infotypeS P);
+void pop(Stack &S, infotypeS P);
+infotypeS peek(Stack S);
+infotypeS sizeS(Stack S);
+void printStack(Stack S);
+
+Queue createQueue(Queue Q);
+bool isEmptyQ(Queue Q);
+void enqueue(Queue &Q, address P);
+void dequeue(Queue &Q, address P);
+address front(Queue Q);
+infotypeQ sizeQ(Queue Q);
+
 
 #endif

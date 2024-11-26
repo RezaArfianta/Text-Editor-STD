@@ -1,0 +1,2 @@
+
+void printStack(Stack S){
