@@ -23,4 +23,11 @@ int main()
     insertFirst(coba, sbntr);
 
     printList(coba);
+
+    sbntr = createElm(200);
+    insertFirst(coba, sbntr);
+    sbntr = createElm(370);
+    insertFirst(coba, sbntr);
+
+    printList(coba);
 }
