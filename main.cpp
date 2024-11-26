@@ -30,4 +30,6 @@ int main()
     insertFirst(coba, sbntr);
 
     printList(coba);
+
+    cout << "Gebar gebol" << endl;
 }
