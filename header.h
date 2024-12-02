@@ -34,7 +34,7 @@ struct List
 };
 
 const int MAXSIZE = 4;
-typedef char infotypeS;
+typedef adrList infotypeS;
 typedef int index;
 struct Stack {
     infotypeS info[MAXSIZE];
@@ -68,12 +68,12 @@ void printList(List L);
 void printHuruf(List L);
 
 void createStack(Stack &S);
-infotypeS isEmptyS(Stack S);
-infotypeS isFullS(Stack S);
-void push(Stack &S, infotypeS P);
-void pop(Stack &S, infotypeS P);
+bool isEmptyS(Stack S);
+bool isFullS(Stack S);
+void push(Stack &S, List P);
+void pop(Stack &S, List P);
 infotypeS peek(Stack S);
-infotypeS sizeS(Stack S);
+int sizeS(Stack S);
 void printStack(Stack S);
 
 Queue createQueue(Queue Q);

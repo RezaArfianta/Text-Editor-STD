@@ -63,6 +63,8 @@ void insertFirst(List &L, adrList P)
 }
 
 void insertLast(List &L, adrList P){
+    P->huruf = createHuruf(P->info);
+
     if (L.first != nullptr){
         P->prev = L.last;
         L.last->next = P;
@@ -155,52 +157,53 @@ void createStack(Stack &S){
     S.top = 0;
 };
 
-infotypeS isEmptyS(Stack S){
+bool isEmptyS(Stack S){
     return S.top == 0;
 }
 
-infotypeS isFullS(Stack S){
+bool isFullS(Stack S){
     return S.top == MAXSIZE;
 }
 
-void push(Stack &S, infotypeS P){
+void push(Stack &S, List P){
     if (!isEmptyS){
         S.top++;
-        S.info[S.top] = P;
+        S.info[S.top] = P.first;
     }
 }
 
-void pop(Stack &S, infotypeS P){
+void pop(Stack &S, List P){
     if (!isFullS){
-        P = S.info[S.top--];
+        P.first = S.info[S.top--];
+        S.top--;
     }
 }
 
 infotypeS peek(Stack S){
     if (!isEmptyS){
-        return S.top;
+        return S.info[S.top];
     } else {
-        return -1;
+        return nullptr;
     }
 }
 
-infotypeS sizeS(Stack S){
+int sizeS(Stack S){
     return S.top;
 }
 
 void printStack(Stack S){
-    Stack temp;
-    infotypeS x;
-    createStack(temp);
-    while(!isEmptyS){
-        pop(S,x);
-        push(temp,x);
-    }
-    while(!isEmptyS){
-        pop(S,x);
-        cout << x;
-        push(S,x);
-    }
+    // Stack temp;
+    // infotypeS x;
+    // createStack(temp);
+    // while(!isEmptyS){
+    //     pop(S,x);
+    //     push(temp,x);
+    // }
+    // while(!isEmptyS){
+    //     pop(S,x);
+    //     cout << x;
+    //     push(S,x);
+    // }
 }
 
 Queue createQueue(Queue Q){
