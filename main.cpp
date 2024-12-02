@@ -15,21 +15,26 @@ int main()
     List coba;
     adrList sbntr;
     createList(coba);
-    sbntr = createElm(10);
+    sbntr = createElm("Reja");
     insertFirst(coba, sbntr);
-    sbntr = createElm(20);
+    sbntr = createElm("Yandik");
     insertFirst(coba, sbntr);
-    sbntr = createElm(30);
+    sbntr = createElm("Jongle");
+    insertFirst(coba, sbntr);
+
+    printList(coba);
+    cout << endl;
+
+    sbntr = createElm("Yipi");
+    insertFirst(coba, sbntr);
+    sbntr = createElm("Yey");
     insertFirst(coba, sbntr);
 
     printList(coba);
 
-    sbntr = createElm(200);
-    insertFirst(coba, sbntr);
-    sbntr = createElm(370);
-    insertFirst(coba, sbntr);
-
-    printList(coba);
+    cout << endl << "Print huruf:" << endl;
+    printHuruf(coba);
+    cout << endl;
 
     cout << "Hello";
 }

@@ -9,7 +9,7 @@ void createList(List &L)
     L.last = nullptr;
 }
 
-adrList createElm(int x)
+adrList createElm(string x)
 {
     adrList P;
     P = new Elm;
@@ -17,12 +17,38 @@ adrList createElm(int x)
     P->info = x;
     P->next = NULL;
     P->prev = nullptr;
+    P->huruf = nullptr;
 
     return P;
 }
 
+
+adrHuruf createHuruf(string info){
+    // Jadi ini create hurufnya sekalian assign P->info ke P->huruf
+    adrHuruf first = nullptr;
+    adrHuruf last = nullptr;
+
+    for (char huruf : info) {
+        adrHuruf newHuruf = new ElmHuruf;
+        newHuruf->huruf = huruf;
+        newHuruf->next = nullptr;
+
+        if (first == nullptr) { 
+            first = newHuruf;
+            last = first;
+        } else { 
+            last->next = newHuruf;
+            last = newHuruf;
+        }
+    }
+
+    return first;
+}
+
 void insertFirst(List &L, adrList P)
 {
+    P->huruf = createHuruf(P->info);
+
     if (L.first == NULL) {
         L.first = P;
         L.last = P;
@@ -32,6 +58,8 @@ void insertFirst(List &L, adrList P)
         L.first->prev = P;
         L.first = P;
     }
+
+    
 }
 
 void insertLast(List &L, adrList P){
@@ -103,6 +131,21 @@ void printList(List L)
         while (P != NULL)
         {
             cout << P->info << " ";
+            P = P->next;
+        }
+    }
+}
+
+void printHuruf(List L){
+    adrList P = L.first;
+
+    if (L.first != nullptr){
+        while (P != nullptr){
+            adrHuruf Q = P->huruf;
+            while (Q != nullptr){
+                cout << Q->huruf;
+                Q = Q->next;
+            }
             P = P->next;
         }
     }

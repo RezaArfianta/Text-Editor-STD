@@ -1,14 +1,30 @@
 #ifndef HEADER_H_INCLUDED
 #define HEADER_H_INCLUDED
 
+#include <iostream>
+using namespace std;
+
 struct Elm;
-typedef Elm *adrList;
+typedef Elm *adrList; 
+
+struct ElmHuruf;
+typedef ElmHuruf *adrHuruf;
+
+struct ElmHuruf{
+    char huruf;
+    adrHuruf next;
+};
+
+struct ListHuruf{
+    adrHuruf first;
+};
 
 struct Elm
 {
-    int info;
+    string info;
     adrList next;
     adrList prev;
+    adrHuruf huruf;
 };
 
 struct List
@@ -41,7 +57,7 @@ struct Queue{
 };
 
 void createList(List &L);
-adrList createElm(int x);
+adrList createElm(string x);
 void insertFirst(List &L, adrList P);
 void insertLast(List &L, adrList P);
 void insertAfter(List &L, adrList P, adrList pred);
@@ -49,6 +65,7 @@ void deleteFirst(List &L, adrList P);
 void deleteLast(List &L, adrList P);
 void deleteAfter(List &L, adrList P, adrList pred);
 void printList(List L);
+void printHuruf(List L);
 
 void createStack(Stack &S);
 infotypeS isEmptyS(Stack S);
