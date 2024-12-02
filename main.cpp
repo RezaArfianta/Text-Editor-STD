@@ -10,14 +10,7 @@ int pilihMenu;
 
 int main()
 {
-    cout << "Welcome to YaReJol Text Editor" << endl;
+    cout << "Welcome to UnyilKucrit Text Editor" << endl;
     menu();
-    cin >> pilihMenu;
-    if (pilihMenu == 1)
-    {
-        // insert something
-    }
-    else if (pilihMenu == 2)
-    {
-    }
+    cout << "Terima kasih telah memakai UnyilKucrit Text Editor" << endl;
 }
