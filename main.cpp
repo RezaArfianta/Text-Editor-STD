@@ -1,35 +1,23 @@
 #include <iostream>
 #include "header.h"
 #include "function.cpp"
+#include "MENU\headerMenu.h"
+#include "MENU\functionMenu.cpp"
 
 using namespace std;
 
+int pilihMenu;
+
 int main()
 {
-    cout << "Hello bro" << endl;
-    int a, b;
-    a = 10;
-    b = 16;
-    cout << a * b << endl;
-
-    List coba;
-    adrList sbntr;
-    createList(coba);
-    sbntr = createElm(10);
-    insertFirst(coba, sbntr);
-    sbntr = createElm(20);
-    insertFirst(coba, sbntr);
-    sbntr = createElm(30);
-    insertFirst(coba, sbntr);
-
-    printList(coba);
-
-    sbntr = createElm(200);
-    insertFirst(coba, sbntr);
-    sbntr = createElm(370);
-    insertFirst(coba, sbntr);
-
-    printList(coba);
-
-    cout << "Hello";
+    cout << "Welcome to YaReJol Text Editor" << endl;
+    menu();
+    cin >> pilihMenu;
+    if (pilihMenu == 1)
+    {
+        // insert something
+    }
+    else if (pilihMenu == 2)
+    {
+    }
 }
