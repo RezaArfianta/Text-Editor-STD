@@ -18,7 +18,7 @@ struct ElmHuruf{
 struct ListHuruf{
     adrHuruf first;
 };
-
+//
 struct Elm
 {
     string info;

@@ -13,7 +13,7 @@ void redoHuruf(List &kalimat, Stack &undoStack, Stack &redoStack) {
     }
     //setelah redo bisa coba di cek pake printlist nya lagi
 }
-
+//
 // MAIN:
     // List coba;
     // adrList sbntr;

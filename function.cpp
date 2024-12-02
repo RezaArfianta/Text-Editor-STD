@@ -21,7 +21,7 @@ adrList createElm(string x)
 
     return P;
 }
-
+//
 
 adrHuruf createHuruf(string info){
     // Jadi ini create hurufnya sekalian assign P->info ke P->huruf
