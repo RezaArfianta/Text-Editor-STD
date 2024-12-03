@@ -1,24 +1,41 @@
 #ifndef HEADER_H_INCLUDED
 #define HEADER_H_INCLUDED
 
+using namespace std;
+
 struct Elm;
 typedef Elm *adrList;
 
+struct ElmHuruf;
+typedef ElmHuruf *adrHuruf;
+
+struct ElmHuruf{
+    char huruf;
+    adrHuruf next;
+};
+
+struct ListHuruf{
+    adrHuruf first;
+};
+//
 struct Elm
 {
-    int info;
+    string info;
     adrList next;
     adrList prev;
+    adrHuruf huruf;
 };
+
 
 struct List
 {
     adrList first;
     adrList last;
+    adrList current;
 };
 
 const int MAXSIZE = 4;
-typedef char infotypeS;
+typedef adrList infotypeS;
 typedef int index;
 struct Stack {
     infotypeS info[MAXSIZE];
@@ -39,24 +56,25 @@ struct Queue{
     address head;
     address tail;
 };
-
+void printListSemua(List L);
 void createList(List &L);
-adrList createElm(int x);
+adrList createElm(string x);
 void insertFirst(List &L, adrList P);
 void insertLast(List &L, adrList P);
 void insertAfter(List &L, adrList P, adrList pred);
 void deleteFirst(List &L, adrList P);
 void deleteLast(List &L, adrList P);
 void deleteAfter(List &L, adrList P, adrList pred);
-void printList(List L);
+void printList(List &L);
+void printHuruf(List L);
 
 void createStack(Stack &S);
-infotypeS isEmptyS(Stack S);
-infotypeS isFullS(Stack S);
-void push(Stack &S, infotypeS P);
-void pop(Stack &S, infotypeS P);
+bool isEmptyS(Stack S);
+bool isFullS(Stack S);
+void push(Stack &S, List P);
+string Pop(Stack& stacks);
 infotypeS peek(Stack S);
-infotypeS sizeS(Stack S);
+int sizeS(Stack S);
 void printStack(Stack S);
 
 Queue createQueue(Queue Q);
@@ -66,5 +84,8 @@ void dequeue(Queue &Q, address P);
 address front(Queue Q);
 infotypeQ sizeQ(Queue Q);
 
+void redoHuruf(List &kalimat, Stack &stackUndo, Stack &stackRedo);
+void undoHuruf(List& kalimat, Stack& stackUndo, Stack& stackRedo);
 
-#endif
+
+#endif // HEADER_H_INCLUDED
