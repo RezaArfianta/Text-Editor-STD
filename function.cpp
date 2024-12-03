@@ -1,7 +1,9 @@
-#include "header.h"
 #include <iostream>
+# include "header.h"
 
-using namespace std;
+//void InitList(TextEditMLL& editor) {
+//    editor.current = nullptr;
+//}
 
 void createList(List &L)
 {
@@ -9,7 +11,7 @@ void createList(List &L)
     L.last = nullptr;
 }
 
-adrList createElm(int x)
+adrList createElm(string x)
 {
     adrList P;
     P = new Elm;
@@ -17,12 +19,38 @@ adrList createElm(int x)
     P->info = x;
     P->next = NULL;
     P->prev = nullptr;
+    P->huruf = nullptr;
 
     return P;
+}
+//
+
+adrHuruf createHuruf(string info){
+    // Jadi ini create hurufnya sekalian assign P->info ke P->huruf
+    adrHuruf first = nullptr;
+    adrHuruf last = nullptr;
+
+    for (char huruf : info) {
+        adrHuruf newHuruf = new ElmHuruf;
+        newHuruf->huruf = huruf;
+        newHuruf->next = nullptr;
+
+        if (first == nullptr) {
+            first = newHuruf;
+            last = first;
+        } else {
+            last->next = newHuruf;
+            last = newHuruf;
+        }
+    }
+
+    return first;
 }
 
 void insertFirst(List &L, adrList P)
 {
+    P->huruf = createHuruf(P->info);
+
     if (L.first == NULL) {
         L.first = P;
         L.last = P;
@@ -32,9 +60,13 @@ void insertFirst(List &L, adrList P)
         L.first->prev = P;
         L.first = P;
     }
+
+
 }
 
 void insertLast(List &L, adrList P){
+    P->huruf = createHuruf(P->info);
+
     if (L.first != nullptr){
         P->prev = L.last;
         L.last->next = P;
@@ -94,15 +126,29 @@ void deleteAfter(List &L, adrList P, adrList pred){
     }
 }
 
-void printList(List L)
-{
-    adrList P;
-    P = L.first;
-    if (L.first != NULL)
-    {
-        while (P != NULL)
-        {
-            cout << P->info << " ";
+void printList(List &L) {
+    if (L.current == nullptr) {
+        cout << "Tidak ada state yang aktif." << endl;
+        return;
+    }
+
+    adrList temp = L.current;
+    while (temp != nullptr) {
+        cout << temp->info << endl;
+        temp = temp->prev;
+    }
+}
+
+void printHuruf(List L){
+    adrList P = L.first;
+
+    if (L.first != nullptr){
+        while (P != nullptr){
+            adrHuruf Q = P->huruf;
+            while (Q != nullptr){
+                cout << Q->huruf;
+                Q = Q->next;
+            }
             P = P->next;
         }
     }
@@ -112,52 +158,65 @@ void createStack(Stack &S){
     S.top = 0;
 };
 
-infotypeS isEmptyS(Stack S){
+bool isEmptyS(Stack S){
     return S.top == 0;
 }
 
-infotypeS isFullS(Stack S){
+bool isFullS(Stack S){
     return S.top == MAXSIZE;
 }
 
-void push(Stack &S, infotypeS P){
-    if (!isEmptyS){
-        S.top++;
-        S.info[S.top] = P;
+void push(Stack &S, List P) {
+    if (S.top == MAXSIZE - 1) {     // kondisi buat kalau stack penuh
+        cout << "Stack penuh, tidak dapat menambah state!" << endl;
+        return;
+    }
+
+    // periksa state nya kosong atau engga
+    if (P.current == nullptr) {
+        cout << "Tidak ada state (current) pada list untuk ditambahkan ke stack!" << endl;
+        return;
+    }
+
+    S.top++;
+    S.info[S.top] = P.first; // Simpan pointer ke elemen current dari List
+
+    cout << "State '" << P.current->info << "' berhasil ditambahkan ke stack." << endl;
+}
+
+void pop(Stack &S, List P){
+    if (!isFullS){
+        P.first = S.info[S.top--];
+        S.top--;
     }
 }
 
-void pop(Stack &S, infotypeS P){
-    if (!isFullS){
-        P = S.info[S.top--];
-    }
-}
 
 infotypeS peek(Stack S){
     if (!isEmptyS){
-        return S.top;
+        return S.info[S.top];
     } else {
-        return -1;
+        return nullptr;
     }
 }
 
-infotypeS sizeS(Stack S){
+int sizeS(Stack S){
     return S.top;
 }
 
 void printStack(Stack S){
-    Stack temp;
-    infotypeS x;
-    createStack(temp);
-    while(!isEmptyS){
-        pop(S,x);
-        push(temp,x);
-    }
-    while(!isEmptyS){
-        pop(S,x);
-        cout << x;
-        push(S,x);
-    }
+    // Stack temp;
+    // infotypeS x;
+    // createStack(temp);
+    // while(!isEmptyS){
+    //     pop(S,x);
+    //     push(temp,x);
+    // }
+    // while(!isEmptyS){
+    //     pop(S,x);
+    //     cout << x;
+    //     push(S,x);
+    // }
 }
 
 Queue createQueue(Queue Q){
@@ -206,7 +265,7 @@ address front(Queue Q){
 infotypeQ sizeQ(Queue Q){
     infotypeQ result;
     address P;
-    
+
     result = 0;
     P = Q.head;
     while (P!=nullptr){
@@ -214,4 +273,17 @@ infotypeQ sizeQ(Queue Q){
         P=P->next;
     }
     return result;
+}
+
+void undoHuruf(List& kalimat, Stack& stackUndo, Stack& stackRedo) {
+    if (kalimat.current == nullptr) {
+        cout << "Tidak ada state untuk di-undo." << endl;
+        return;
+    }
+
+    push(stackRedo, kalimat);
+
+    if (kalimat.current->prev != nullptr) {
+        kalimat.current = kalimat.current->prev;
+    }
 }
