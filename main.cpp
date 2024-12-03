@@ -325,95 +325,17 @@
 
 #include <iostream>
 #include "header.h"
+#include "function.cpp"
+#include "MENU\headerMenu.h"
+#include "MENU\functionMenu.cpp"
 
 using namespace std;
 
-int main() {
-    // Inisialisasi editor dan stack
-    List editor;
-    createList(editor);
+int pilihMenu;
 
-    Stack stackUndo, stackRedo;
-    createStack(stackUndo);
-    createStack(stackRedo);
-
-    string inputText;
-    char choice;
-    adrList newNode;
-
-    // Tambahkan teks awal
-    cout << "Masukkan teks pertama: ";
-    getline(cin, inputText);
-    newNode = createElm(inputText);
-    insertLast(editor, newNode); // Simpan teks awal ke editor
-    editor.current = newNode;   // Set state awal sebagai current
-
-    while (true) {
-        cout << "\nState saat ini: "
-             << (editor.current ? editor.current->info : "Kosong")
-             << endl;
-
-        cout << "Pilih: (E)dit, (U)ndo, (R)edo, (S)tates, atau (Q)uit: ";
-        cin >> choice;
-        cin.ignore(); // Bersihkan newline setelah input karakter
-
-        if (choice == 'Q' || choice == 'q') {
-            break;
-        }
-
-        switch (choice) {
-            case 'E': case 'e': {
-                cout << "Masukkan teks baru: ";
-                getline(cin, inputText);
-
-                // Push state saat ini ke stackUndo sebelum mengedit
-                if (editor.current != nullptr) {
-                    push(stackUndo, editor);
-                }
-
-                // Tambahkan teks baru ke list sebagai state baru
-                newNode = createElm(inputText);
-                insertLast(editor, newNode);
-                editor.current = newNode;
-
-                // Kosongkan stackRedo setelah edit
-                createStack(stackRedo);
-
-                cout << "Teks baru berhasil ditambahkan ke editor." << endl;
-                break;
-            }
-
-            case 'U': case 'u': {
-                undoHuruf(editor, stackUndo, stackRedo);
-                cout << "Undo selesai." << endl;
-                break;
-            }
-
-            case 'R': case 'r': {
-                if (!isEmptyS(stackRedo)) {
-                    // Pop dari stackRedo ke editor
-                    push(stackUndo, editor); // Simpan state sebelum redo
-                    editor.current = peek(stackRedo); // Set state baru
-                    stackRedo.top--; // Pindahkan top stackRedo
-                    cout << "Redo selesai." << endl;
-                } else {
-                    cout << "Tidak ada state untuk di-redo." << endl;
-                }
-                break;
-            }
-
-            case 'S': case 's': {
-                cout << "Semua state editor saat ini:\n";
-                printList(editor);
-                cout << endl;
-                break;
-            }
-
-            default:
-                cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
-        }
-    }
-
-    cout << "\nProgram selesai. Terima kasih!" << endl;
-    return 0;
+int main()
+{
+    cout << "Welcome to UnyilKucrit Text Editor" << endl;
+    menu();
+    cout << "Terima kasih telah memakai UnyilKucrit Text Editor" << endl;
 }

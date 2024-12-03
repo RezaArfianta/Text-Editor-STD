@@ -1,2 +1,1 @@
-
-void printStack(Stack S){
+#include "function.cpp"

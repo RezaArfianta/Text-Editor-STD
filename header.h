@@ -37,7 +37,8 @@ struct List
 const int MAXSIZE = 4;
 typedef adrList infotypeS;
 typedef int index;
-struct Stack {
+struct Stack
+{
     infotypeS info[MAXSIZE];
     index top;
 };
@@ -46,18 +47,21 @@ typedef int infotypeQ;
 struct ElmQueue;
 typedef ElmQueue *address;
 
-struct ElmQueue{
+struct ElmQueue
+{
     infotypeQ info;
     address next;
     address prev;
 };
 
-struct Queue{
+struct Queue
+{
     address head;
     address tail;
 };
 void printListSemua(List L);
 void createList(List &L);
+adrList createElm(string x);
 adrList createElm(string x);
 void insertFirst(List &L, adrList P);
 void insertLast(List &L, adrList P);
